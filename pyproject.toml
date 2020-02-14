@@ -16,6 +16,7 @@ classifiers = [
 python = "^3.6"
 flask = "^1.1.1"
 python-slugify = "^4.0.0"
+mistune = "^0.8.4"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.7"

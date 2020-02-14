@@ -1,8 +1,10 @@
 """The main CTFF script."""
 from importlib import resources
-from typing import Any, List
+from pathlib import Path
+from typing import List, Optional
 
 from flask import Flask, render_template, current_app
+import mistune
 
 from .challenge_group import ChallengeGroup
 
@@ -10,20 +12,24 @@ from .challenge_group import ChallengeGroup
 class CTFF(Flask):
     """CTFFramework main class."""
 
-    def __init__(self, **kwargs: Any) -> None:
+    def __init__(
+            self,
+            *,
+            title: str = "CTF",
+            template_folder: Optional[Path] = None,
+            introduction_md: Optional[str] = None,
+            introduction_html: str = "",
+    ) -> None:
 
-        with resources.path("ctff", "templates") as path:
-            template_folder = str(path.absolute())
+        if template_folder is None:
+            with resources.path("ctff", "templates") as path:
+                template_folder = str(path.absolute())
 
-        kwargs["template_folder"] = template_folder
+        super().__init__("CTFF", template_folder=template_folder)
 
-        if "title" in kwargs.keys():
-            self.title = kwargs.pop("title")
-        else:
-            self.title = "CTF"
-
-        super().__init__("CTFF", **kwargs)
-
+        self._title = title
+        self._introduction_md = introduction_md
+        self._introduction_html = introduction_html
         self._challenge_groups: List[ChallengeGroup] = []
 
         self.before_first_request(self._setup)
@@ -38,6 +44,28 @@ class CTFF(Flask):
             challenge_groups=self._challenge_groups,
             ctff=current_app,
         )
+
+    @property
+    def challenge_groups(self) -> str:
+        """The challenge groups."""
+        return self._challenge_groups
+
+    @property
+    def introduction_html(self) -> str:
+        """
+        The HTML for the CTF introduction.
+
+        If introduction_md is set, this will be rendered from it.
+        """
+        if self._introduction_md is None:
+            return self._introduction_html
+        else:
+            return mistune.markdown(self._introduction_md)
+
+    @property
+    def title(self) -> str:
+        """The title of the CTF."""
+        return self._title
 
     def register_challenge_group(self, challenge_group: ChallengeGroup) -> None:
         """Register a challenge group."""

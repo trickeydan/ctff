@@ -2,11 +2,17 @@
 {% block title %}{{ ctff.title }}{% endblock %}
 {% block body %}
 
+{{ ctff.introduction_html|safe }}
 
-<ul>
-    {% for group in challenge_groups %}
-        <li><a href="/{{ group.url_slug }}">{{ group.name }}</a></li>
-    {% endfor %}
-</ul>
+<h2>Challenges</h2>
 
+<p>This CTF contains {{ challenge_groups|length}} categories of challenge.</p>
+
+<p>
+    <ul>
+        {% for group in challenge_groups %}
+            <li><a href="/{{ group.url_slug }}">{{ group.name }}</a></li>
+        {% endfor %}
+    </ul>
+</p>
 {% endblock %}
