@@ -2,6 +2,7 @@
 from collections.abc import Collection
 from typing import Iterator, List, Type, TypeVar
 
+from flask import render_template
 from slugify import slugify
 
 from .challenge import Challenge
@@ -31,6 +32,9 @@ class ChallengeGroup(Collection):
 
     def __contains__(self, __x: object) -> bool:
         return __x in self._challenges
+
+    def index_view(self):
+        return render_template("challenge_group.html")
 
     def add_challenge(self, challenge: Type[ChallengeT]) -> None:
         """Add a challenge."""
