@@ -1,8 +1,9 @@
 """A group of challenges."""
 from collections.abc import Collection
-from typing import Iterator, List, Type, TypeVar
+from typing import Iterator, List, Optional, Type, TypeVar
 
 from flask import current_app, render_template
+import mistune
 from slugify import slugify
 
 from .challenge import Challenge
@@ -15,14 +16,35 @@ ChallengeViewT = TypeVar("ChallengeViewT", bound=ChallengeView)
 class ChallengeGroup(Collection):
     """A group of challenges."""
 
-    def __init__(self, name: str):
+    def __init__(
+            self,
+            name: str,
+            *,
+            introduction_md: Optional[str] = None,
+            introduction_html: str = "",
+    ):
         self.name = name
+        self._introduction_md = introduction_md
+        self._introduction_html = introduction_html
+
         self._challenges: List[Type[ChallengeT]] = []  # type: ignore
 
     @property
     def url_slug(self) -> str:
         """Get a url slug."""
         return slugify(self.name)
+
+    @property
+    def introduction_html(self) -> str:
+        """
+        The HTML for the CTF introduction.
+
+        If introduction_md is set, this will be rendered from it.
+        """
+        if self._introduction_md is None:
+            return self._introduction_html
+        else:
+            return mistune.markdown(self._introduction_md)
 
     def __len__(self) -> int:
         return len(self._challenges)

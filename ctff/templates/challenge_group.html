@@ -1,7 +1,12 @@
-<h1>{{ challenge_group.name }}</h1>
+{% extends 'layout.html' %}
+{% block title %}{{ challenge_group.name }}{% endblock %}
+{% block body %}
 
-<a href="/">Back to CTFF Index</a>
+<p><a href="/">Back to CTFF Index</a></p>
 
+{{ ctff.introduction_html|safe }}
+
+<h2>Challenges</h2>
 
 <ul>
     {% for challenge in challenge_group %}
@@ -9,3 +14,4 @@
     {% endfor %}
 </ul>
 
+{% endblock %}
