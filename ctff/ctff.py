@@ -22,4 +22,4 @@ class CTFF(Flask):
         """Register a challenge group."""
         for view in challenge_group.get_views():
             challenge_class = view.get_challenge()
-            self.add_url_rule(f"/{challenge_group.url_slug}/{challenge_class.url_slug()}", view_func=view.as_view("tes22"))
+            self.add_url_rule(f"/{challenge_group.url_slug}/{challenge_class.url_slug()}", view_func=view.as_view(challenge_class.url_slug()))

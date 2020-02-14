@@ -6,7 +6,7 @@ from abc import ABCMeta, abstractmethod
 class Challenge(metaclass=ABCMeta):
     """A challenge presents a problem to the competitor."""
 
-    @classmethod
+    @property
     @abstractmethod
     def title(cls) -> str:
         """The title of the challenge."""
