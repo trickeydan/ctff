@@ -37,8 +37,9 @@ class ChallengeGroup(Collection):
         """Render the page for the challenge group."""
         return render_template("challenge_group.html", group=self)
 
-    def add_challenge(self, challenge: Type[ChallengeT]) -> None:
+    def add_challenge(self, challenge: Type[Challenge]) -> None:
         """Add a challenge."""
+        challenge.group = self
         self._challenges.append(challenge)
 
     def get_challenge_views(self) -> List[Type[ChallengeViewT]]:
