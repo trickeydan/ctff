@@ -1,5 +1,5 @@
 """Challenge View."""
-from typing import TypeVar, Type
+from typing import Any, TypeVar, Type
 
 from flask.templating import render_template
 from flask.views import View
@@ -22,6 +22,6 @@ class ChallengeView(View):
         """Get the name of the Jinja template."""
         return "challenge.html"
 
-    def dispatch_request(self, **context):
+    def dispatch_request(self, *args: Any, **kwargs: Any) -> Any:
         """Render and return a request."""
-        return render_template(self.get_template_name(), **context)
+        return render_template(self.get_template_name())

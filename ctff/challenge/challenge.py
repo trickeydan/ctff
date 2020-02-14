@@ -1,6 +1,7 @@
 """The base challenge class."""
 
 from abc import ABCMeta, abstractmethod
+from typing import cast
 
 from slugify import slugify
 
@@ -17,4 +18,4 @@ class Challenge(metaclass=ABCMeta):
     @classmethod
     def get_url_slug(cls) -> str:
         """The URL slug."""
-        return slugify(cls.title)
+        return slugify(cast(str, cls.title))
