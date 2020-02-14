@@ -1,10 +1,9 @@
 <h1>Welcome to CTFF</h1>
 
-{% for group in challenge_groups %}
 <ul>
-    <li><a href="/{{ group.url_slug }}">{{ group.name }}</a></li>
+    {% for group in challenge_groups %}
+        <li><a href="/{{ group.url_slug }}">{{ group.name }}</a></li>
+    {% endfor %}
 </ul>
-
-{% endfor %}
 
 <p>Powered by CTFF</p>
