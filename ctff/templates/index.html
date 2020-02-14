@@ -1,4 +1,7 @@
-<h1>Welcome to CTFF</h1>
+{% extends 'layout.html' %}
+{% block title %}CTFF{% endblock %}
+{% block body %}
+
 
 <ul>
     {% for group in challenge_groups %}
@@ -6,4 +9,4 @@
     {% endfor %}
 </ul>
 
-<p>Powered by CTFF</p>
+{% endblock %}

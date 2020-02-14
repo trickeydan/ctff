@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title>{% block title %}{% endblock %}</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	</head>
+	<body>
+		<header class="container" style="padding-top: 2em">
+			<heading style="font-size: 5em">CTFF</heading>
+			<h1>{{ self.title() }}</h1>
+		</header>
+		<main class="container" style="padding-top: 2em">
+			{% block body %}{% endblock %}
+			<footer>
+                <small style="color: #cccccc">Powered by <a href="https://github.com/trickeydan/ctff">CTFF</a></small>
+			</footer>
+		</main>
+	</body>
+</html>
