@@ -23,10 +23,11 @@ class CTFF(Flask):
 
         self.before_first_request(self._setup)
 
-    def _setup(self):
+    def _setup(self) -> None:
         self.add_url_rule("/", view_func=self.index_view)
 
-    def index_view(self):
+    def index_view(self) -> str:
+        """Render the index view for the CTF."""
         return render_template(
             "index.html",
             challenge_groups=self._challenge_groups,

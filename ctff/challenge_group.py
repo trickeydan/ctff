@@ -33,7 +33,8 @@ class ChallengeGroup(Collection):
     def __contains__(self, __x: object) -> bool:
         return __x in self._challenges
 
-    def index_view(self):
+    def index_view(self) -> str:
+        """Render the page for the challenge group."""
         return render_template("challenge_group.html", group=self)
 
     def add_challenge(self, challenge: Type[ChallengeT]) -> None:
