@@ -3,6 +3,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import TYPE_CHECKING, Optional, cast
 
+import mistune
 from slugify import slugify
 
 if TYPE_CHECKING:
@@ -24,3 +25,20 @@ class Challenge(metaclass=ABCMeta):
     def get_url_slug(cls) -> str:
         """The URL slug."""
         return slugify(cast(str, cls.title))
+
+    @property
+    def introduction_html(self) -> str:
+        """
+        The HTML for the Challenge introduction.
+
+        If introduction_md is set, this will be rendered from it.
+        """
+        if self.introduction_md is None:
+            return ""
+        else:
+            return mistune.markdown(self._introduction_md)
+
+    @property
+    def introduction_md(self) -> Optional[str]:
+        """Markdown for the Challenge."""
+        return None

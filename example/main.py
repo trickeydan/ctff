@@ -16,6 +16,8 @@ class MyChallenge(Challenge):
 
     title = "Super Easy"
 
+    introduction_md = "My first challenge!"
+
 
 challenge_group = ChallengeGroup("Basic Challenges", introduction_md=intro)
 
