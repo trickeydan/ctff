@@ -36,7 +36,7 @@ class ChallengeGroup(Collection):
         """Add a challenge."""
         self._challenges.append(challenge)
 
-    def get_views(self) -> List[Type[ChallengeViewT]]:
+    def get_challenge_views(self) -> List[Type[ChallengeViewT]]:
         """Get the challenge views that we need to add."""
         views: List[Type[ChallengeViewT]] = []
 
