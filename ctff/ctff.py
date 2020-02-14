@@ -2,7 +2,7 @@
 from importlib import resources
 from typing import Any
 
-from flask import Flask
+from flask import Flask, render_template
 
 from .challenge_group import ChallengeGroup
 
@@ -18,6 +18,11 @@ class CTFF(Flask):
         kwargs["template_folder"] = template_folder
 
         super().__init__("CTFF", **kwargs)
+
+        self.add_url_rule("/", view_func=self.index_view)
+
+    def index_view(self):
+        return render_template("index.html")
 
     def register_challenge_group(self, challenge_group: ChallengeGroup) -> None:
         """Register a challenge group."""
