@@ -15,4 +15,4 @@ challenge_group.add_challenge(MyChallenge)
 app.register_challenge_group(challenge_group)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
