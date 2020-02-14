@@ -1,7 +1,7 @@
 """Challenge View."""
 from typing import Any, Type, TypeVar
 
-from flask.helpers import current_app
+from flask import current_app
 from flask.templating import render_template
 from flask.views import View
 

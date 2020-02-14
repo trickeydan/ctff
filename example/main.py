@@ -21,7 +21,7 @@ class MyChallenge(Challenge):
     title = "Super Easy"
 
 
-challenge_group = ChallengeGroup("Basic")
+challenge_group = ChallengeGroup("Basic Challenges")
 
 challenge_group.add_challenge(MyChallenge)
 

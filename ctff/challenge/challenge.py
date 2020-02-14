@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Optional, cast
 from slugify import slugify
 
 if TYPE_CHECKING:
-    from ctff.challenge_group import ChallengeGroup
+    from ctff.challenge_group import ChallengeGroup  # noqa: F401
 
 
 class Challenge(metaclass=ABCMeta):

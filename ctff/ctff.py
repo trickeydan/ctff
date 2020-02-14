@@ -1,10 +1,9 @@
 """The main CTFF script."""
 from importlib import resources
-from pathlib import Path
 from typing import List, Optional
 
-from flask import Flask, render_template, current_app
 import mistune
+from flask import Flask, current_app, render_template
 
 from .challenge_group import ChallengeGroup
 
@@ -16,7 +15,7 @@ class CTFF(Flask):
             self,
             *,
             title: str = "CTF",
-            template_folder: Optional[Path] = None,
+            template_folder: Optional[str] = None,
             introduction_md: Optional[str] = None,
             introduction_html: str = "",
     ) -> None:
@@ -46,7 +45,7 @@ class CTFF(Flask):
         )
 
     @property
-    def challenge_groups(self) -> str:
+    def challenge_groups(self) -> List[ChallengeGroup]:
         """The challenge groups."""
         return self._challenge_groups
 
