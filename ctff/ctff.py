@@ -20,6 +20,8 @@ class CTFF(Flask):
 
     def register_challenge_group(self, challenge_group: ChallengeGroup) -> None:
         """Register a challenge group."""
+        group_slug = challenge_group.url_slug
         for view in challenge_group.get_views():
             challenge_class = view.get_challenge()
-            self.add_url_rule(f"/{challenge_group.url_slug}/{challenge_class.url_slug()}", view_func=view.as_view(challenge_class.url_slug()))
+            challenge_slug = challenge_class.get_url_slug()
+            self.add_url_rule(f"/{group_slug}/{challenge_slug}", view_func=view.as_view(f"{group_slug}_{challenge_slug}"))

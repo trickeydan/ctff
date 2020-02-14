@@ -13,6 +13,6 @@ class Challenge(metaclass=ABCMeta):
         raise NotImplementedError
 
     @classmethod
-    def url_slug(cls) -> str:
+    def get_url_slug(cls) -> str:
         """The URL slug."""
         return cls.title
