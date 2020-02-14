@@ -16,7 +16,9 @@ class MyChallenge(Challenge):
 
     title = "Super Easy"
 
-    introduction_md = "My first challenge!"
+    @property
+    def introduction_md(self) -> str:
+        return intro
 
 
 challenge_group = ChallengeGroup("Basic Challenges", introduction_md=intro)

@@ -36,7 +36,7 @@ class Challenge(metaclass=ABCMeta):
         if self.introduction_md is None:
             return ""
         else:
-            return mistune.markdown(self._introduction_md)
+            return mistune.markdown(self.introduction_md)
 
     @property
     def introduction_md(self) -> Optional[str]:

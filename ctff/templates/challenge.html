@@ -1,5 +1,9 @@
-<h1>{{ challenge.title }}</h1>
+{% extends 'layout.html' %}
+{% block title %}{{ challenge.title }}{% endblock %}
+{% block body %}
 
-<a href="/{{ challenge_group.url_slug }}">Back to {{ challenge.group.name }}</a>
+<p><a href="/{{ challenge_group.url_slug }}">Back to {{ challenge.group.name }}</a></p>
 
-Hello WOrld I am a challenge.
+{{ challenge.introduction_html|safe }}
+
+{% endblock %}
