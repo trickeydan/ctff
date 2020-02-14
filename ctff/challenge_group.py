@@ -6,7 +6,7 @@ from flask import render_template
 from slugify import slugify
 
 from .challenge import Challenge
-from .views import ChallengeView
+from .challenge_view import ChallengeView
 
 ChallengeT = TypeVar("ChallengeT", bound=Challenge)
 ChallengeViewT = TypeVar("ChallengeViewT", bound=ChallengeView)
