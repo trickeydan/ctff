@@ -37,7 +37,7 @@ class ChallengeGroup(Collection):
     @property
     def introduction_html(self) -> str:
         """
-        The HTML for the CTF introduction.
+        The HTML for the Challenge Group introduction.
 
         If introduction_md is set, this will be rendered from it.
         """
