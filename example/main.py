@@ -6,7 +6,7 @@ class MyChallenge(Challenge):
     title = "Super Easy"
 
 
-app = CTFF()
+app = CTFF(title="My CTF")
 
 challenge_group = ChallengeGroup("Basic")
 

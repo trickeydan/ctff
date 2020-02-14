@@ -1,6 +1,7 @@
 """Challenge View."""
 from typing import Any, Type, TypeVar
 
+from flask.helpers import current_app
 from flask.templating import render_template
 from flask.views import View
 
@@ -29,4 +30,6 @@ class ChallengeView(View):
         return render_template(
             self.get_template_name(),
             challenge=challenge_class(),
+            challenge_group=challenge_class.group,
+            ctff=current_app,
         )

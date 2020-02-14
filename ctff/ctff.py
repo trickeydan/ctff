@@ -2,7 +2,7 @@
 from importlib import resources
 from typing import Any, List
 
-from flask import Flask, render_template
+from flask import Flask, render_template, current_app
 
 from .challenge_group import ChallengeGroup
 
@@ -16,6 +16,11 @@ class CTFF(Flask):
             template_folder = str(path.absolute())
 
         kwargs["template_folder"] = template_folder
+
+        if "title" in kwargs.keys():
+            self.title = kwargs.pop("title")
+        else:
+            self.title = "CTF"
 
         super().__init__("CTFF", **kwargs)
 
@@ -31,6 +36,7 @@ class CTFF(Flask):
         return render_template(
             "index.html",
             challenge_groups=self._challenge_groups,
+            ctff=current_app,
         )
 
     def register_challenge_group(self, challenge_group: ChallengeGroup) -> None:

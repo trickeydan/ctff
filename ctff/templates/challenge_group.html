@@ -1,11 +1,11 @@
-<h1>{{ group.name }}</h1>
+<h1>{{ challenge_group.name }}</h1>
 
 <a href="/">Back to CTFF Index</a>
 
 
 <ul>
-    {% for challenge in group %}
-        <li><a href="/{{ group.url_slug }}/{{ challenge.get_url_slug() }}">{{ challenge.title }}</a></li>
+    {% for challenge in challenge_group %}
+        <li><a href="/{{ challenge_group.url_slug }}/{{ challenge.get_url_slug() }}">{{ challenge.title }}</a></li>
     {% endfor %}
 </ul>
 

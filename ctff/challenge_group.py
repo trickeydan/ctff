@@ -2,7 +2,7 @@
 from collections.abc import Collection
 from typing import Iterator, List, Type, TypeVar
 
-from flask import render_template
+from flask import render_template, current_app
 from slugify import slugify
 
 from .challenge import Challenge
@@ -35,7 +35,7 @@ class ChallengeGroup(Collection):
 
     def index_view(self) -> str:
         """Render the page for the challenge group."""
-        return render_template("challenge_group.html", group=self)
+        return render_template("challenge_group.html", challenge_group=self, ctff=current_app)
 
     def add_challenge(self, challenge: Type[Challenge]) -> None:
         """Add a challenge."""
