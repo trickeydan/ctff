@@ -3,7 +3,7 @@ from ctff import Challenge, ChallengeGroup, CTFF
 
 class MyChallenge(Challenge):
 
-    title = "a"
+    title = "Super Easy"
 
 
 app = CTFF()

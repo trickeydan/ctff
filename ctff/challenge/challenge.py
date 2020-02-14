@@ -2,6 +2,8 @@
 
 from abc import ABCMeta, abstractmethod
 
+from slugify import slugify
+
 
 class Challenge(metaclass=ABCMeta):
     """A challenge presents a problem to the competitor."""
@@ -15,4 +17,4 @@ class Challenge(metaclass=ABCMeta):
     @classmethod
     def get_url_slug(cls) -> str:
         """The URL slug."""
-        return cls.title
+        return slugify(cls.title)

@@ -2,6 +2,8 @@
 from collections.abc import Collection
 from typing import Iterator, List, Tuple, Type, TypeVar
 
+from slugify import slugify
+
 from .challenge import Challenge
 from .views.challenge import ChallengeView
 
@@ -19,7 +21,7 @@ class ChallengeGroup(Collection):
     @property
     def url_slug(self) -> str:
         """Get a url slug."""
-        return self.name.strip().lower()
+        return slugify(self.name)
 
     def __len__(self) -> int:
         return len(self._challenges)
