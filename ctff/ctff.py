@@ -1,6 +1,6 @@
 """The main CTFF script."""
 from importlib import resources
-from typing import Any
+from typing import Any, List
 
 from flask import Flask, render_template
 
@@ -19,13 +19,23 @@ class CTFF(Flask):
 
         super().__init__("CTFF", **kwargs)
 
+        self._challenge_groups: List[ChallengeGroup] = []
+
+        self.before_first_request(self._setup)
+
+    def _setup(self):
         self.add_url_rule("/", view_func=self.index_view)
 
     def index_view(self):
-        return render_template("index.html")
+        return render_template(
+            "index.html",
+            challenge_groups=self._challenge_groups,
+        )
 
     def register_challenge_group(self, challenge_group: ChallengeGroup) -> None:
         """Register a challenge group."""
+        self._challenge_groups.append(challenge_group)
+
         group_slug = challenge_group.url_slug
 
         self.add_url_rule(
