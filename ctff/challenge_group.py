@@ -33,7 +33,7 @@ class ChallengeGroup(Collection):
         return __x in self._challenges
 
     def add_challenge(self, challenge: Type[ChallengeT]) -> None:
-        """Add a challenge"""
+        """Add a challenge."""
         self._challenges.append(challenge)
 
     def get_views(self) -> List[Type[ChallengeViewT]]:
@@ -49,4 +49,3 @@ class ChallengeGroup(Collection):
 
             views.append(SpecificChallengeView)  # type: ignore
         return views
-

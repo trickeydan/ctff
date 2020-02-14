@@ -1,5 +1,5 @@
 """Challenge View."""
-from typing import Any, TypeVar, Type
+from typing import Any, Type, TypeVar
 
 from flask.templating import render_template
 from flask.views import View
