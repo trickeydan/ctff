@@ -78,11 +78,10 @@ class ChallengeGroup(Collection):
         views: List[Type[ChallengeViewT]] = []
 
         for chal in self._challenges:
+
             class SpecificChallengeView(ChallengeView):
 
-                @classmethod
-                def get_challenge(cls) -> Type[ChallengeT]:
-                    return chal
+                challenge = chal
 
             views.append(SpecificChallengeView)  # type: ignore
         return views

@@ -84,8 +84,7 @@ class CTFF(Flask):
         )
 
         for view in challenge_group.get_challenge_views():  # type: ignore
-            challenge_class = view.get_challenge()
-            challenge_slug = challenge_class.get_url_slug()
+            challenge_slug = view.challenge.get_url_slug()
             self.add_url_rule(
                 f"/{group_slug}/{challenge_slug}",
                 view_func=view.as_view(f"{group_slug}_{challenge_slug}"),
