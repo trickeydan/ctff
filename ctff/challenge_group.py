@@ -2,8 +2,8 @@
 from collections.abc import Collection
 from typing import Iterator, List, Optional, Type, TypeVar
 
-from flask import current_app, render_template
 import mistune
+from flask import current_app, render_template
 from slugify import slugify
 
 from .challenge import Challenge
