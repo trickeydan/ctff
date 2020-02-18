@@ -1,5 +1,7 @@
 # CTFFramework
 
+BETA SOFTWARE. SUPPORT IS NOT PROVIDED AT THIS TIME.
+
 A Framework for building CTFs.
 
 ## Contributions
