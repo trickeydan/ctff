@@ -12,7 +12,10 @@ app = CTFF(
     introduction_md=intro,
 )
 
+challenge_group = ChallengeGroup("Basic Challenges", introduction_md=intro)
 
+
+@challenge_group.challenge
 class MyChallenge(Challenge):
 
     title = "Super Easy"
@@ -20,10 +23,6 @@ class MyChallenge(Challenge):
         MarkdownPart(intro)
     ]
 
-
-challenge_group = ChallengeGroup("Basic Challenges", introduction_md=intro)
-
-challenge_group.add_challenge(MyChallenge)
 
 app.register_challenge_group(challenge_group)
 
