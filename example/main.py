@@ -1,5 +1,5 @@
 from ctff import Challenge, ChallengeGroup, CTFF
-from ctff.part import MarkdownPart
+from ctff.part import MarkdownPart, TextSubmissionPart
 
 from flask import request
 
@@ -22,12 +22,16 @@ challenge_group = ChallengeGroup("Basic Challenges", introduction_md=intro)
 class MyChallenge(Challenge):
 
     title = "Super Easy"
-    parts = [
-        MarkdownPart(intro)
-    ]
+
+    def __init__(self) -> None:
+
+        self.parts = [
+            MarkdownPart(intro),
+            TextSubmissionPart("example"),
+        ]
 
     def verify_submission(self) -> bool:
-        return request.json == {}
+        return request.form["example"] == "bees"
 
 
 app.register_challenge_group(challenge_group)

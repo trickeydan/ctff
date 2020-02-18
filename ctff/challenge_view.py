@@ -47,4 +47,4 @@ class ChallengeView(MethodView):
         if challenge_class.group is None:
             raise RuntimeError
         else:
-            return redirect(f"/{challenge_class.group.url_slug}")
+            return redirect(f"/{challenge_class.group.url_slug}/{challenge.get_url_slug()}")

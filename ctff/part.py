@@ -24,6 +24,15 @@ class TemplatePart(Part, metaclass=ABCMeta):
         return render_template(self.template_name, part=self)
 
 
+class TextSubmissionPart(TemplatePart):
+    """Submit a text form."""
+
+    def __init__(self, name: str):
+        self.name = name
+
+    template_name = "parts/text_submission.html"
+
+
 class MarkdownPart(Part):
     """A part that renders some markdown."""
 
