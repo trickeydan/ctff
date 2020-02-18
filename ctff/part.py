@@ -30,7 +30,7 @@ class TextSubmissionPart(TemplatePart):
     def __init__(self, name: str):
         self.name = name
 
-    template_name = "parts/text_submission.html"
+    template_name = "part_text_submission.html"
 
 
 class MarkdownPart(Part):
