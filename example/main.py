@@ -22,6 +22,7 @@ challenge_group = ChallengeGroup("Basic Challenges", introduction_md=intro)
 class MyChallenge(Challenge):
 
     title = "Super Easy"
+    flag = "flag{exampleFlag}"
 
     def __init__(self) -> None:
 

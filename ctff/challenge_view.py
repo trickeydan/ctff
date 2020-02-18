@@ -43,7 +43,7 @@ class ChallengeView(MethodView):
             flash(challenge.success_message, "success")
             flash(challenge.flag, "flag")
         else:
-            flash(challenge.failure_message, "error")
+            flash(challenge.failure_message, "danger")
         if challenge_class.group is None:
             raise RuntimeError
         else:
