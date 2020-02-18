@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ctff"
-version = "0.1.0"
+version = "0.2.0"
 description = "A Framework for building CTFs."
 authors = ["Dan Trickey <dan@trickey.io>"]
 license = "MIT"

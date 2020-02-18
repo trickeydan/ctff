@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, List, Optional, cast
 
 from slugify import slugify
 
-from ctff.parts import Part
+from ctff.part import Part
 
 if TYPE_CHECKING:
     from ctff.challenge_group import ChallengeGroup  # noqa: F401

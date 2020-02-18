@@ -15,4 +15,4 @@ __all__ = [
     "CTFF",
 ]
 
-__version__ = "0.1.0a"
+__version__ = "0.2.0"
