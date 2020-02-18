@@ -1,5 +1,5 @@
 from ctff import Challenge, ChallengeGroup, CTFF
-from ctff.parts import MarkdownPart
+from ctff.part import MarkdownPart
 
 intro = """
 This text is rendered as **markdown**.

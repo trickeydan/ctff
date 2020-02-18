@@ -1,16 +1,17 @@
 """Challenge View."""
-from typing import Any, Type, TypeVar
+from typing import Type, TypeVar
 
-from flask import current_app
+from flask import current_app, flash, redirect
 from flask.templating import render_template
-from flask.views import View
+from flask.views import MethodView
+from werkzeug.wrappers import Response
 
 from ctff.challenge import Challenge
 
 ChallengeT = TypeVar("ChallengeT", bound=Challenge)
 
 
-class ChallengeView(View):
+class ChallengeView(MethodView):
     """Renders and processes a challenge."""
 
     @classmethod
@@ -23,7 +24,7 @@ class ChallengeView(View):
         """Get the name of the Jinja template."""
         return "challenge.html"
 
-    def dispatch_request(self, *args: Any, **kwargs: Any) -> Any:
+    def get(self) -> str:
         """Render and return a request."""
         challenge_class: Type[Challenge] = self.get_challenge()
 
@@ -33,3 +34,17 @@ class ChallengeView(View):
             challenge_group=challenge_class.group,
             ctff=current_app,
         )
+
+    def post(self) -> Response:
+        """Verify a submission."""
+        challenge_class: Type[Challenge] = self.get_challenge()
+        challenge = challenge_class()
+        if challenge.verify_submission():
+            flash(challenge.success_message, "success")
+            flash(challenge.flag, "flag")
+        else:
+            flash(challenge.failure_message, "error")
+        if challenge_class.group is None:
+            raise RuntimeError
+        else:
+            return redirect(f"/{challenge_class.group.url_slug}")

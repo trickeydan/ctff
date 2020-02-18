@@ -16,6 +16,9 @@ class Challenge(metaclass=ABCMeta):
 
     group: Optional['ChallengeGroup'] = None
     parts: List[Part] = []
+    success_message: str = "You completed the challenge."
+    failure_message: str = "Incorrect."
+    flag: str = "DEFAULT_FLAG"
 
     @property
     @abstractmethod
@@ -27,3 +30,7 @@ class Challenge(metaclass=ABCMeta):
     def get_url_slug(cls) -> str:
         """The URL slug."""
         return slugify(cast(str, cls.title))
+
+    def verify_submission(self) -> bool:
+        """Verify a submission."""
+        return False
