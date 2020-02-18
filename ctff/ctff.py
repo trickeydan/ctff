@@ -13,6 +13,7 @@ class CTFF(Flask):
 
     def __init__(
             self,
+            secret_key: bytes,
             *,
             title: str = "CTF",
             template_folder: Optional[str] = None,
@@ -24,8 +25,12 @@ class CTFF(Flask):
             with resources.path("ctff", "templates") as path:
                 template_folder = str(path.absolute())
 
-        super().__init__("CTFF", template_folder=template_folder)
+        super().__init__(
+            "CTFF",
+            template_folder=template_folder,
+        )
 
+        self.secret_key = secret_key
         self._title = title
         self._introduction_md = introduction_md
         self._introduction_html = introduction_html
