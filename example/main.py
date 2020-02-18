@@ -1,4 +1,5 @@
 from ctff import Challenge, ChallengeGroup, CTFF
+from ctff.parts import MarkdownPart
 
 intro = """
 This text is rendered as **markdown**.
@@ -15,10 +16,9 @@ app = CTFF(
 class MyChallenge(Challenge):
 
     title = "Super Easy"
-
-    @property
-    def introduction_md(self) -> str:
-        return intro
+    parts = [
+        MarkdownPart(intro)
+    ]
 
 
 challenge_group = ChallengeGroup("Basic Challenges", introduction_md=intro)

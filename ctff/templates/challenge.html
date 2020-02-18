@@ -4,6 +4,8 @@
 
 <p><a href="/{{ challenge_group.url_slug }}">Back to {{ challenge.group.name }}</a></p>
 
-{{ challenge.introduction_html|safe }}
+{%  for part in challenge.parts %}
+    {{ part.render()|safe }}
+{% endfor %}
 
 {% endblock %}
