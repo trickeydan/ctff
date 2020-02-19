@@ -10,7 +10,7 @@
         {% endfor %}
       {% endif %}
     {% endwith %}
-    <label>Please enter your generated {{ part.name }} here:</label>
+    <label>Please enter your {{ part.name }} here:</label>
     <textarea class="form-control" name="{{ part.name }}"></textarea>
     <br>
     <input class="btn btn-success" type="submit" value="Submit {{ part.name }}">
