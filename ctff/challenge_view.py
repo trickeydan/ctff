@@ -1,4 +1,5 @@
 """Challenge View."""
+from logging import Logger
 from typing import Type, TypeVar
 
 from flask import current_app, flash, redirect
@@ -7,6 +8,8 @@ from flask.views import MethodView
 from werkzeug.wrappers import Response
 
 from ctff.challenge import Challenge
+
+LOGGER = Logger(__name__)
 
 ChallengeT = TypeVar("ChallengeT", bound=Challenge)
 
@@ -36,6 +39,7 @@ class ChallengeView(MethodView):
         if challenge.verify_submission():
             flash(challenge.success_message, "success")
             flash(challenge.flag, "flag")
+            LOGGER.error(f"{challenge.title} has been solved.")
         else:
             flash(challenge.failure_message, "danger")
         if self.challenge.group is None:
