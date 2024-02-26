@@ -1,7 +1,7 @@
 """The main CTFF script."""
 from __future__ import annotations
 
-from importlib import resources
+from pathlib import Path
 
 import mistune
 from flask import Flask, current_app, render_template
@@ -17,13 +17,12 @@ class CTFF(Flask):
         secret_key: bytes,
         *,
         title: str = "CTF",
-        template_folder: str | None = None,
+        template_folder: str | Path | None = None,
         introduction_md: str | None = None,
         introduction_html: str = "",
     ) -> None:
         if template_folder is None:
-            with resources.path("ctff", "templates") as path:
-                template_folder = str(path.absolute())
+            template_folder = Path(__file__).parent.resolve() / "templates"
 
         super().__init__(
             "CTFF",
