@@ -1,7 +1,7 @@
-from ctff import Challenge, ChallengeGroup, CTFF
-from ctff.part import MarkdownPart, TextSubmissionPart
-
 from flask import request
+
+from ctff import CTFF, Challenge, ChallengeGroup
+from ctff.part import MarkdownPart, TextSubmissionPart
 
 intro = """
 This text is rendered as **markdown**.

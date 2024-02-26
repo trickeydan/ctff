@@ -1,6 +1,8 @@
 """Challenge View."""
+from __future__ import annotations
+
 from logging import Logger
-from typing import Type, TypeVar
+from typing import TypeVar
 
 from flask import current_app, flash, redirect
 from flask.templating import render_template
@@ -17,7 +19,7 @@ ChallengeT = TypeVar("ChallengeT", bound=Challenge)
 class ChallengeView(MethodView):
     """Renders and processes a challenge."""
 
-    challenge: Type[Challenge]
+    challenge: type[Challenge]
 
     @classmethod
     def get_template_name(cls) -> str:

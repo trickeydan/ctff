@@ -10,6 +10,9 @@ all: type test lint
 lint:
 	$(CMD) ruff $(PYMODULE) $(TESTS) $(EXTRACODE)
 
+lint-fix:
+	$(CMD) ruff --fix $(PYMODULE) $(TESTS) $(EXTRACODE)
+
 type:
 	$(CMD) mypy $(PYMODULE) $(TESTS) $(EXTRACODE)
 

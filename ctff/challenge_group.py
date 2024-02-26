@@ -1,6 +1,8 @@
 """A group of challenges."""
+from __future__ import annotations
+
 from collections.abc import Collection
-from typing import Iterator, List, Optional, Type, TypeVar
+from typing import Iterator, TypeVar
 
 import mistune
 from flask import current_app, render_template
@@ -20,14 +22,14 @@ class ChallengeGroup(Collection):
             self,
             name: str,
             *,
-            introduction_md: Optional[str] = None,
+            introduction_md: str | None = None,
             introduction_html: str = "",
-    ):
+    ) -> None:
         self.name = name
         self._introduction_md = introduction_md
         self._introduction_html = introduction_html
 
-        self._challenges: List[Type[ChallengeT]] = []  # type: ignore
+        self._challenges: list[type[ChallengeT]] = []  # type: ignore
 
     @property
     def url_slug(self) -> str:
@@ -49,7 +51,7 @@ class ChallengeGroup(Collection):
     def __len__(self) -> int:
         return len(self._challenges)
 
-    def __iter__(self) -> Iterator[Type[ChallengeT]]:
+    def __iter__(self) -> Iterator[type[ChallengeT]]:
         return iter(self._challenges)
 
     def __contains__(self, __x: object) -> bool:
@@ -63,19 +65,19 @@ class ChallengeGroup(Collection):
             ctff=current_app,
         )
 
-    def add_challenge(self, challenge: Type[Challenge]) -> None:
+    def add_challenge(self, challenge: type[Challenge]) -> None:
         """Add a challenge."""
         challenge.group = self
         self._challenges.append(challenge)
 
-    def challenge(self, cls: Type[Challenge]) -> Type[Challenge]:
+    def challenge(self, cls: type[Challenge]) -> type[Challenge]:
         """Register a challenge."""
         self.add_challenge(cls)
         return cls
 
-    def get_challenge_views(self) -> List[Type[ChallengeViewT]]:
+    def get_challenge_views(self) -> list[type[ChallengeViewT]]:
         """Get the challenge views that we need to add."""
-        views: List[Type[ChallengeViewT]] = []
+        views: list[type[ChallengeViewT]] = []
 
         for chal in self._challenges:
 

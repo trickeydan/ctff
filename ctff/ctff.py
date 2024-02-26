@@ -1,6 +1,7 @@
 """The main CTFF script."""
+from __future__ import annotations
+
 from importlib import resources
-from typing import List, Optional
 
 import mistune
 from flask import Flask, current_app, render_template
@@ -16,8 +17,8 @@ class CTFF(Flask):
             secret_key: bytes,
             *,
             title: str = "CTF",
-            template_folder: Optional[str] = None,
-            introduction_md: Optional[str] = None,
+            template_folder: str | None = None,
+            introduction_md: str | None = None,
             introduction_html: str = "",
     ) -> None:
 
@@ -34,7 +35,7 @@ class CTFF(Flask):
         self._title = title
         self._introduction_md = introduction_md
         self._introduction_html = introduction_html
-        self._challenge_groups: List[ChallengeGroup] = []
+        self._challenge_groups: list[ChallengeGroup] = []
 
         self.add_url_rule("/", view_func=self.index_view)
 
@@ -47,7 +48,7 @@ class CTFF(Flask):
         )
 
     @property
-    def challenge_groups(self) -> List[ChallengeGroup]:
+    def challenge_groups(self) -> list[ChallengeGroup]:
         """The challenge groups."""
         return self._challenge_groups
 
