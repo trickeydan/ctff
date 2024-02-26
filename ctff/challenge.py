@@ -1,7 +1,8 @@
 """The base challenge class."""
+from __future__ import annotations
 
 from abc import ABCMeta, abstractmethod
-from typing import TYPE_CHECKING, List, Optional, cast
+from typing import TYPE_CHECKING, cast
 
 from slugify import slugify
 
@@ -14,15 +15,15 @@ if TYPE_CHECKING:
 class Challenge(metaclass=ABCMeta):
     """A challenge presents a problem to the competitor."""
 
-    group: Optional['ChallengeGroup'] = None
-    parts: List[Part] = []
+    group: ChallengeGroup | None = None
+    parts: list[Part] = []
     success_message: str = "You completed the challenge."
     failure_message: str = "Incorrect."
     flag: str = "DEFAULT_FLAG"
 
     @property
     @abstractmethod
-    def title(cls) -> str:
+    def title(self) -> str:
         """The title of the challenge."""
         raise NotImplementedError
 
