@@ -27,7 +27,7 @@ class TemplatePart(Part, metaclass=ABCMeta):
 class TextSubmissionPart(TemplatePart):
     """Submit a text form."""
 
-    template_name = "parts/text_submission.html"
+    template_name = "challenge_parts/text_submission.html"
 
     def __init__(self, name: str) -> None:
         self.name = name
