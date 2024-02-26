@@ -3,7 +3,7 @@
 CMD:=poetry run
 PYMODULE:=ctff
 TESTS:=tests
-EXTRACODE:=
+EXTRACODE:=example
 
 all: type test format lint
 

@@ -4,10 +4,9 @@ from __future__ import annotations
 from logging import Logger
 from typing import TypeVar
 
-from flask import current_app, flash, redirect
+from flask import current_app, flash
 from flask.templating import render_template
 from flask.views import MethodView
-from werkzeug.wrappers import Response
 
 from ctff.challenge import Challenge
 
@@ -35,7 +34,7 @@ class ChallengeView(MethodView):
             ctff=current_app,
         )
 
-    def post(self) -> Response:
+    def post(self) -> str:
         """Verify a submission."""
         challenge = self.challenge()
         if challenge.verify_submission():
@@ -47,6 +46,4 @@ class ChallengeView(MethodView):
         if self.challenge.group is None:
             raise RuntimeError
         else:
-            return redirect(
-                f"/{self.challenge.group.url_slug}/{challenge.get_url_slug()}",
-            )
+            return self.get()
