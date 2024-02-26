@@ -36,9 +36,6 @@ class CTFF(Flask):
         self._introduction_html = introduction_html
         self._challenge_groups: List[ChallengeGroup] = []
 
-        self.before_first_request(self._setup)
-
-    def _setup(self) -> None:
         self.add_url_rule("/", view_func=self.index_view)
 
     def index_view(self) -> str:
