@@ -62,3 +62,20 @@ extend-ignore = [
     "N999",    # Invalid module name
     "S101",    # S101 Use of `assert` detected
 ]
+
+[tool.mypy]
+warn_unused_ignores = true
+warn_return_any = true
+
+strict_optional = true
+no_implicit_optional = true
+
+disallow_any_unimported = true
+disallow_subclassing_any = true
+
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+
+check_untyped_defs = true
