@@ -13,15 +13,14 @@ class CTFF(Flask):
     """CTFFramework main class."""
 
     def __init__(
-            self,
-            secret_key: bytes,
-            *,
-            title: str = "CTF",
-            template_folder: str | None = None,
-            introduction_md: str | None = None,
-            introduction_html: str = "",
+        self,
+        secret_key: bytes,
+        *,
+        title: str = "CTF",
+        template_folder: str | None = None,
+        introduction_md: str | None = None,
+        introduction_html: str = "",
     ) -> None:
-
         if template_folder is None:
             with resources.path("ctff", "templates") as path:
                 template_folder = str(path.absolute())

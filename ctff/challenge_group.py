@@ -19,11 +19,11 @@ class ChallengeGroup(Collection):
     """A group of challenges."""
 
     def __init__(
-            self,
-            name: str,
-            *,
-            introduction_md: str | None = None,
-            introduction_html: str = "",
+        self,
+        name: str,
+        *,
+        introduction_md: str | None = None,
+        introduction_html: str = "",
     ) -> None:
         self.name = name
         self._introduction_md = introduction_md
@@ -82,7 +82,6 @@ class ChallengeGroup(Collection):
         for chal in self._challenges:
 
             class SpecificChallengeView(ChallengeView):
-
                 challenge = chal
 
             views.append(SpecificChallengeView)  # type: ignore

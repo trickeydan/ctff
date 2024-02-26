@@ -20,12 +20,10 @@ challenge_group = ChallengeGroup("Basic Challenges", introduction_md=intro)
 
 @challenge_group.challenge
 class MyChallenge(Challenge):
-
     title = "Super Easy"
     flag = "flag{exampleFlag}"
 
     def __init__(self) -> None:
-
         self.parts = [
             MarkdownPart(intro),
             TextSubmissionPart("example"),
