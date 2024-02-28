@@ -2,7 +2,9 @@
 {% block title %}{{ ctff.title }}{% endblock %}
 {% block body %}
 
-{{ ctff.introduction_html|safe }}
+{% for part in ctff.get_parts() %}
+        {{ part.render()|safe }}
+    {% endfor %}
 
 <h2>Categories</h2>
 
