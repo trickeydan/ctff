@@ -2,17 +2,16 @@
 from __future__ import annotations
 
 from logging import Logger
-from typing import TypeVar
+from typing import TYPE_CHECKING
 
 from flask import current_app, flash
 from flask.templating import render_template
 from flask.views import MethodView
 
-from ctff.challenge import Challenge
+if TYPE_CHECKING:
+    from ctff.challenge import Challenge
 
 LOGGER = Logger(__name__)
-
-ChallengeT = TypeVar("ChallengeT", bound=Challenge)
 
 
 class ChallengeView(MethodView):

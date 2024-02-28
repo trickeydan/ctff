@@ -2,14 +2,17 @@
 from __future__ import annotations
 
 from abc import ABCMeta
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, TypeVar
 
 from slugify import slugify
 
+from ctff.challenge_view import ChallengeView
 from ctff.part import Part
 
 if TYPE_CHECKING:
     from ctff.challenge_group import ChallengeGroup  # noqa: F401
+
+ChallengeViewT = TypeVar("ChallengeViewT", bound=ChallengeView)
 
 
 class Challenge(metaclass=ABCMeta):
@@ -43,6 +46,12 @@ class Challenge(metaclass=ABCMeta):
     def get_url_slug(self) -> str:
         """The URL slug."""
         return slugify(self.get_title())
+
+    def get_view(self) -> type[ChallengeViewT]:
+        class SpecificChallengeView(ChallengeView):
+            challenge = self
+
+        return SpecificChallengeView  # type: ignore[return-value]
 
     def verify_submission(self) -> bool:
         """Verify a submission."""

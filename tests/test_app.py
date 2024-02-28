@@ -20,7 +20,6 @@ class TestCTFFChallengeGroup:
         challenge_group = example_app._challenge_groups[0]
 
         assert resp.status_code == 200
-        assert challenge_group.introduction_html in resp.text
         assert f"<h1>{challenge_group.name}</h1>" in resp.text
         assert '<a href="/basic-challenges/super-easy">Super Easy</a>' in resp.text
 

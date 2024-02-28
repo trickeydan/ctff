@@ -33,6 +33,17 @@ class TextSubmissionPart(TemplatePart):
         self.name = name
 
 
+class HTMLPart(Part):
+    """A part that renders some HTML."""
+
+    def __init__(self, content: str) -> None:
+        self.content = content
+
+    def render(self) -> str:
+        """Render as html."""
+        return self.content
+
+
 class MarkdownPart(Part):
     """A part that renders some markdown."""
 

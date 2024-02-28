@@ -4,7 +4,9 @@
 {% block body %}
     <p><a href="/">Back to {{ ctff.title }}</a></p>
 
-    {{ challenge_group.introduction_html|safe }}
+    {% for part in challenge_group.get_parts() %}
+        {{ part.render()|safe }}
+    {% endfor %}
 
     <h2>Challenges</h2>
 
