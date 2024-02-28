@@ -8,7 +8,6 @@ class TestCTFFIndex:
         resp = client.get("/")
 
         assert resp.status_code == 200
-        assert example_app.introduction_html in resp.text
         assert "This CTF contains 1 categories of challenge." in resp.text
         assert '<a href="/basic-challenges">Basic Challenges</a>' in resp.text
 

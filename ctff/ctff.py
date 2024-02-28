@@ -4,7 +4,6 @@ from __future__ import annotations
 from pathlib import Path
 from warnings import warn
 
-import mistune
 from flask import Flask, current_app, render_template
 
 from ctff.part import HTMLPart, MarkdownPart, Part
@@ -34,7 +33,7 @@ class CTFF(Flask):
         )
 
         self.secret_key = secret_key
-        self._title = title
+        self.title = title
         self.parts = parts or []
 
         self._challenge_groups: list[ChallengeGroup] = []
@@ -66,28 +65,6 @@ class CTFF(Flask):
             challenge_groups=self._challenge_groups,
             ctff=current_app,
         )
-
-    @property
-    def challenge_groups(self) -> list[ChallengeGroup]:
-        """The challenge groups."""
-        return self._challenge_groups
-
-    @property
-    def introduction_html(self) -> str:
-        """
-        The HTML for the CTF introduction.
-
-        If introduction_md is set, this will be rendered from it.
-        """
-        if self._introduction_md is None:
-            return self._introduction_html
-        else:
-            return mistune.markdown(self._introduction_md)
-
-    @property
-    def title(self) -> str:
-        """The title of the CTF."""
-        return self._title
 
     def register_challenge_group(self, challenge_group: ChallengeGroup) -> None:
         """Register a challenge group."""
