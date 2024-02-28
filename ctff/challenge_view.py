@@ -29,19 +29,16 @@ class ChallengeView(MethodView):
         return render_template(
             self.get_template_name(),
             challenge=self.challenge,
-            challenge_group=self.challenge.group,
             ctff=current_app,
         )
 
     def post(self) -> str:
         """Verify a submission."""
-        challenge = self.challenge
-
-        if challenge.verify_submission():
-            flash(challenge.success_message, "success")
-            flash(challenge.flag, "flag")
-            LOGGER.error(f"{challenge.title} has been solved.")
+        if self.challenge.verify_submission():
+            flash(self.challenge.get_success_message(), "success")
+            flash(self.challenge.get_flag(), "flag")
+            LOGGER.error(f"{self.challenge.get_title()} has been solved.")
         else:
-            flash(challenge.failure_message, "danger")
+            flash(self.challenge.get_failure_message(), "danger")
 
         return self.get()

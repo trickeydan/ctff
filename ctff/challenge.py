@@ -1,8 +1,8 @@
 """The base challenge class."""
 from __future__ import annotations
 
-from abc import ABCMeta, abstractmethod
-from typing import TYPE_CHECKING, cast
+from abc import ABCMeta
+from typing import TYPE_CHECKING
 
 from slugify import slugify
 
@@ -15,23 +15,34 @@ if TYPE_CHECKING:
 class Challenge(metaclass=ABCMeta):
     """A challenge presents a problem to the competitor."""
 
+    title = "Challenge"
+    flag = "DEFAULT_FLAG"
+    parts: list[Part] = []
+
+    success_message = "You completed the challenge."
+    failure_message = "Incorrect."
+
     def __init__(self, *, group: ChallengeGroup) -> None:
         self.group = group
 
-    parts: list[Part] = []
-    success_message: str = "You completed the challenge."
-    failure_message: str = "Incorrect."
-    flag: str = "DEFAULT_FLAG"
+    def get_failure_message(self) -> str:
+        return self.failure_message
 
-    @property
-    @abstractmethod
-    def title(self) -> str:
-        """The title of the challenge."""
-        raise NotImplementedError
+    def get_flag(self) -> str:
+        return self.flag
+
+    def get_success_message(self) -> str:
+        return self.success_message
+
+    def get_parts(self) -> list[Part]:
+        return self.parts
+
+    def get_title(self) -> str:
+        return self.title
 
     def get_url_slug(self) -> str:
         """The URL slug."""
-        return slugify(cast(str, self.title))
+        return slugify(self.get_title())
 
     def verify_submission(self) -> bool:
         """Verify a submission."""
