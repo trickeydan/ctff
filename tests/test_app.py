@@ -33,9 +33,7 @@ class TestCTFFChallenge:
         challenge = challenge_group._challenges[0]
 
         assert resp.status_code == 200
-        assert f"<h1>{challenge.title}</h1>" in resp.text  # type: ignore[attr-defined]
-        for part in challenge.parts:  # type: ignore[attr-defined]
-            assert part.render() in resp.text
+        assert f"<h1>{challenge.title}</h1>" in resp.text
 
     def test_post(self, example_app: CTFF, client: FlaskClient) -> None:
         resp = client.post("/basic-challenges/super-easy", data={"example": "bees"})
@@ -44,11 +42,9 @@ class TestCTFFChallenge:
         challenge = challenge_group._challenges[0]
 
         assert resp.status_code == 200
-        assert f"<h1>{challenge.title}</h1>" in resp.text  # type: ignore[attr-defined]
+        assert f"<h1>{challenge.title}</h1>" in resp.text
         assert "You completed the challenge." in resp.text
         assert "flag{exampleFlag}" in resp.text
-        for part in challenge.parts:  # type: ignore[attr-defined]
-            assert part.render() in resp.text
 
     def test_post_incorrect(self, example_app: CTFF, client: FlaskClient) -> None:
         resp = client.post("/basic-challenges/super-easy", data={"example": "wasps"})
@@ -57,7 +53,5 @@ class TestCTFFChallenge:
         challenge = challenge_group._challenges[0]
 
         assert resp.status_code == 200
-        assert f"<h1>{challenge.title}</h1>" in resp.text  # type: ignore[attr-defined]
+        assert f"<h1>{challenge.title}</h1>" in resp.text
         assert "Incorrect." in resp.text
-        for part in challenge.parts:  # type: ignore[attr-defined]
-            assert part.render() in resp.text

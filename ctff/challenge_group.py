@@ -11,7 +11,6 @@ from slugify import slugify
 from .challenge import Challenge
 from .challenge_view import ChallengeView
 
-ChallengeT = TypeVar("ChallengeT", bound=Challenge)
 ChallengeViewT = TypeVar("ChallengeViewT", bound=ChallengeView)
 
 
@@ -29,7 +28,7 @@ class ChallengeGroup(Collection):
         self._introduction_md = introduction_md
         self._introduction_html = introduction_html
 
-        self._challenges: list[type[ChallengeT]] = []  # type: ignore
+        self._challenges: list[Challenge] = []
 
     @property
     def url_slug(self) -> str:
@@ -51,7 +50,7 @@ class ChallengeGroup(Collection):
     def __len__(self) -> int:
         return len(self._challenges)
 
-    def __iter__(self) -> Iterator[type[ChallengeT]]:
+    def __iter__(self) -> Iterator[Challenge]:
         return iter(self._challenges)
 
     def __contains__(self, __x: object) -> bool:
@@ -65,9 +64,9 @@ class ChallengeGroup(Collection):
             ctff=current_app,
         )
 
-    def add_challenge(self, challenge: type[Challenge]) -> None:
+    def add_challenge(self, challenge_type: type[Challenge]) -> None:
         """Add a challenge."""
-        challenge.group = self
+        challenge = challenge_type(group=self)
         self._challenges.append(challenge)
 
     def challenge(self, cls: type[Challenge]) -> type[Challenge]:

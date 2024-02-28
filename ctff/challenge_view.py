@@ -18,10 +18,9 @@ ChallengeT = TypeVar("ChallengeT", bound=Challenge)
 class ChallengeView(MethodView):
     """Renders and processes a challenge."""
 
-    challenge: type[Challenge]
+    challenge: Challenge
 
-    @classmethod
-    def get_template_name(cls) -> str:
+    def get_template_name(self) -> str:
         """Get the name of the Jinja template."""
         return "challenge.html"
 
@@ -29,21 +28,20 @@ class ChallengeView(MethodView):
         """Render and return a request."""
         return render_template(
             self.get_template_name(),
-            challenge=self.challenge(),
+            challenge=self.challenge,
             challenge_group=self.challenge.group,
             ctff=current_app,
         )
 
     def post(self) -> str:
         """Verify a submission."""
-        challenge = self.challenge()
+        challenge = self.challenge
+
         if challenge.verify_submission():
             flash(challenge.success_message, "success")
             flash(challenge.flag, "flag")
             LOGGER.error(f"{challenge.title} has been solved.")
         else:
             flash(challenge.failure_message, "danger")
-        if self.challenge.group is None:
-            raise RuntimeError
-        else:
-            return self.get()
+
+        return self.get()

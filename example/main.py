@@ -23,11 +23,10 @@ class MyChallenge(Challenge):
     title = "Super Easy"
     flag = "flag{exampleFlag}"
 
-    def __init__(self) -> None:
-        self.parts = [
-            MarkdownPart(intro),
-            TextSubmissionPart("example"),
-        ]
+    parts = [
+        MarkdownPart(intro),
+        TextSubmissionPart("example"),
+    ]
 
     def verify_submission(self) -> bool:
         return request.form["example"] == "bees"

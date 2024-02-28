@@ -15,7 +15,9 @@ if TYPE_CHECKING:
 class Challenge(metaclass=ABCMeta):
     """A challenge presents a problem to the competitor."""
 
-    group: ChallengeGroup | None = None
+    def __init__(self, *, group: ChallengeGroup) -> None:
+        self.group = group
+
     parts: list[Part] = []
     success_message: str = "You completed the challenge."
     failure_message: str = "Incorrect."
@@ -27,10 +29,9 @@ class Challenge(metaclass=ABCMeta):
         """The title of the challenge."""
         raise NotImplementedError
 
-    @classmethod
-    def get_url_slug(cls) -> str:
+    def get_url_slug(self) -> str:
         """The URL slug."""
-        return slugify(cast(str, cls.title))
+        return slugify(cast(str, self.title))
 
     def verify_submission(self) -> bool:
         """Verify a submission."""
