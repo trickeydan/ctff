@@ -1,10 +1,10 @@
 {% extends 'layout.html' %}
-{% block title %}{{ challenge.title }}{% endblock %}
+{% block title %}{{ challenge.get_title() }}{% endblock %}
 
 {% block body %}
-    <p><a href="/{{ challenge_group.url_slug }}">Back to {{ challenge.group.name }}</a></p>
+    <p><a href="/{{ challenge.group.url_slug }}">Back to {{ challenge.group.name }}</a></p>
 
-    {% for part in challenge.parts %}
+    {% for part in challenge.get_parts() %}
         {{ part.render()|safe }}
     {% endfor %}
 {% endblock %}

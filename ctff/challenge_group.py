@@ -3,15 +3,14 @@ from __future__ import annotations
 
 from collections.abc import Collection
 from typing import Iterator, TypeVar
+from warnings import warn
 
-import mistune
 from flask import current_app, render_template
 from slugify import slugify
 
-from .challenge import Challenge
-from .challenge_view import ChallengeView
+from .challenge import Challenge, ChallengeView
+from .part import HTMLPart, MarkdownPart, Part
 
-ChallengeT = TypeVar("ChallengeT", bound=Challenge)
 ChallengeViewT = TypeVar("ChallengeViewT", bound=ChallengeView)
 
 
@@ -22,36 +21,41 @@ class ChallengeGroup(Collection):
         self,
         name: str,
         *,
+        parts: list[Part] | None = None,
         introduction_md: str | None = None,
-        introduction_html: str = "",
+        introduction_html: str | None = None,
     ) -> None:
         self.name = name
+        self.parts = parts or []
+        self._challenges: list[Challenge] = []
+
         self._introduction_md = introduction_md
         self._introduction_html = introduction_html
 
-        self._challenges: list[type[ChallengeT]] = []  # type: ignore
+        # Warn about deprecated args
+        if introduction_md is not None:
+            warn(
+                "introduction_md is deprecated and will be removed in ctff v0.5.0",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+
+        if introduction_html is not None:
+            warn(
+                "introduction_html is deprecated and will be removed in ctff v0.5.0",
+                DeprecationWarning,
+                stacklevel=2,
+            )
 
     @property
     def url_slug(self) -> str:
         """Get a url slug."""
         return slugify(self.name)
 
-    @property
-    def introduction_html(self) -> str:
-        """
-        The HTML for the Challenge Group introduction.
-
-        If introduction_md is set, this will be rendered from it.
-        """
-        if self._introduction_md is None:
-            return self._introduction_html
-        else:
-            return mistune.markdown(self._introduction_md)
-
     def __len__(self) -> int:
         return len(self._challenges)
 
-    def __iter__(self) -> Iterator[type[ChallengeT]]:
+    def __iter__(self) -> Iterator[Challenge]:
         return iter(self._challenges)
 
     def __contains__(self, __x: object) -> bool:
@@ -65,9 +69,9 @@ class ChallengeGroup(Collection):
             ctff=current_app,
         )
 
-    def add_challenge(self, challenge: type[Challenge]) -> None:
+    def add_challenge(self, challenge_type: type[Challenge]) -> None:
         """Add a challenge."""
-        challenge.group = self
+        challenge = challenge_type(group=self)
         self._challenges.append(challenge)
 
     def challenge(self, cls: type[Challenge]) -> type[Challenge]:
@@ -77,12 +81,16 @@ class ChallengeGroup(Collection):
 
     def get_challenge_views(self) -> list[type[ChallengeViewT]]:
         """Get the challenge views that we need to add."""
-        views: list[type[ChallengeViewT]] = []
+        return [challenge.get_view() for challenge in self._challenges]
 
-        for chal in self._challenges:
+    def get_parts(self) -> list[Part]:
+        parts = self.parts
 
-            class SpecificChallengeView(ChallengeView):
-                challenge = chal
+        # Add deprecated parts
+        if self._introduction_md is not None:
+            parts.append(MarkdownPart(self._introduction_md))
 
-            views.append(SpecificChallengeView)  # type: ignore
-        return views
+        if self._introduction_html is not None:
+            parts.append(HTMLPart(self._introduction_html))
+
+        return parts

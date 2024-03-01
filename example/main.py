@@ -1,6 +1,4 @@
-from flask import request
-
-from ctff import CTFF, Challenge, ChallengeGroup
+from ctff import CTFF, Challenge, ChallengeGroup, request
 from ctff.part import MarkdownPart, TextSubmissionPart
 
 intro = """
@@ -12,22 +10,26 @@ You can also use the `introduction_html` argument to directly supply HTML source
 app = CTFF(
     b"secret_key",
     title="My CTF",
-    introduction_md=intro,
+    parts=[MarkdownPart(intro)],
 )
 
-challenge_group = ChallengeGroup("Basic Challenges", introduction_md=intro)
+challenge_group = ChallengeGroup("Basic Challenges", parts=[MarkdownPart(intro)])
 
 
 @challenge_group.challenge
 class MyChallenge(Challenge):
     title = "Super Easy"
-    flag = "flag{exampleFlag}"
 
-    def __init__(self) -> None:
-        self.parts = [
-            MarkdownPart(intro),
-            TextSubmissionPart("example"),
-        ]
+    parts = [
+        MarkdownPart(intro),
+        TextSubmissionPart("example"),
+    ]
+
+    def get_flag(self) -> str:
+        if "application/json" in request.accept_mimetypes:
+            return "flag{somethingElse}"
+        else:
+            return "flag{exampleFlag}"
 
     def verify_submission(self) -> bool:
         return request.form["example"] == "bees"
